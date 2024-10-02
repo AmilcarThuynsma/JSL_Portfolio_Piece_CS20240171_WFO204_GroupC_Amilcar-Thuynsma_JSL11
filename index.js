@@ -18,8 +18,18 @@ function initializeData() {
 
 // TASK: Get elements from the DOM
 const elements = {
+  headerBoardName: document.querySelector('#headerBoardName'),
+  columnDivs: document.querySelector('.column-div'),
+  filterDiv: document.querySelector('.filter-div'),
+  editTaskModal: document.querySelector('#ediTaskModal'),
+  modalWindow: document.querySelector('#modalWIndow'),
+  createNewTaskBtn: document.querySelector('#createNewTaskBtn'),
+  hideSideBarBtn: document.querySelector('#hideSideBtn'),
+  showSideBarBtn: document.querySelector('#showSideBarBtn'),
+  themeSwitch: document.querySelector('#themeSwitch')
+  
 
-}
+};
 
 let activeBoard = ""
 
@@ -85,7 +95,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       taskElement.setAttribute('data-task-id', task.id);
 
       // Listen for a click event on each task and open a modal
-      taskElement.click() => { 
+      taskElement.addEventListener('click', () => { 
         openEditTaskModal(task);
       });
 
