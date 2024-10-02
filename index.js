@@ -115,10 +115,10 @@ function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').foreach(btn => { 
     
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active') 
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active'); 
     }
   });
 }
@@ -215,11 +215,14 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
- 
+ document.body.classList.toggle('show-sidebar', show);
+ localStorage.setItem('show-side', show);
 }
 
 function toggleTheme() {
- 
+  document.body.classList.toggle('light-theme');
+  const isLightTheme = document.body.classList.contains('light-theme');
+  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled')
 }
 
 
