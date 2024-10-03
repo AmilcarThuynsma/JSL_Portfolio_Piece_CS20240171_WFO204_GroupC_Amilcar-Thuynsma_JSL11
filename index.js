@@ -213,48 +213,65 @@ function addTask(event) {
     }
 }
 
-
+// Toggles the sidebar and saves the stae in localStorage
 function toggleSidebar(show) {
  document.body.classList.toggle('show-sidebar', show);
- localStorage.setItem('show-side', show);
+ localStorage.setItem('show-side', show); // Save the current sidebar state in localStorage
 }
-
+// Toggles the theme between light and dark and saves it in localStorage
 function toggleTheme() {
   document.body.classList.toggle('light-theme');
   const isLightTheme = document.body.classList.contains('light-theme');
-  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled')
+  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled') // Saves the preferred theme in localStorage
 }
 
 
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
+  document.getElementById('edit-task-title-input').value = task.title;
+  document.getElementById('edit-task-desc-input').value = task.desciptiom;
+  document.getElementById('edit-select-status').value = task.status;
   
-
   // Get button elements from the task modal
 
-
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn');
   // Call saveTaskChanges upon click of Save Changes button
- 
+  saveChangesBtn.onclick = function () {
+    saveTaskChanges(task.id); // Pass the task ID to the save function
+  }
 
   // Delete task using a helper function and close the task modal
-
+  deleteTaskBtn.onclick = function () {
+    deleteTaskBtn(task.id); // Calls a function to delete the task
+    toggleModal(false, elements.editTaskModal); // Close the modal after deleting the task
+    refreshTasksUI();
+  }
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
-
+// Saves changes made to a task in  the edit task modal
 function saveTaskChanges(taskId) {
   // Get new user inputs
   
+  const updatedTitle = document.getElementById('edit-task-title-input').value;
+  const updatedDesc = document.getElementById('edit-task-desc-input').value;
+  const updatedStatus = document.getElementById('edit-select-status').value;
 
   // Create an object with the updated task details
-
+  const updatedTask = {
+    id: taskId,
+    title: updatedTitle,
+    desciptiom: updatedDesc,
+    status: updatedStatus
+  };
 
   // Update task using a hlper functoin
- 
-
+  updatedTask(updatedTask);
+  
   // Close the modal and refresh the UI to reflect the changes
-
+  toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
 }
 
